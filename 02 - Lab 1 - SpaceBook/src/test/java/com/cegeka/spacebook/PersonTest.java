@@ -1,8 +1,8 @@
 package com.cegeka.spacebook;
 
-import org.junit.Test;
-
 import static org.fest.assertions.Assertions.assertThat;
+
+import org.junit.Test;
 
 public class PersonTest {
 
@@ -11,5 +11,17 @@ public class PersonTest {
         Person person = new Person("randomUsername");
 
         assertThat(person).isNotNull();
+    }
+    
+    @Test
+    public void Person_givenUserName_thenUsernameIsSet() {
+    	Person person = new Person("randomUsername");
+    	
+    	assertThat(person.getUsername()).isEqualTo("randomUsername");
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void Person_givenUsernameNull_thenExceptionIsThrown() {
+    	new Person(null);
     }
 }
