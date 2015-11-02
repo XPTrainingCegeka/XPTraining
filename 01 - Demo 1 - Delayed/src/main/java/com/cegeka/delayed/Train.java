@@ -17,7 +17,7 @@ public class Train {
 
 	}
 
-	public String cutsomerSatifisfaction() throws WorldApocalypseException {
+	public String customerSatifisfaction() throws WorldApocalypseException {
 		switch (hoursDelayed) {
 		case 0:
 			return "Nice 'n' rolling!";
