@@ -45,14 +45,14 @@ public class PersonFriendsTest {
 	public void Person_whenPersonHasFriends_friendCanSendMessageToPerson()
 			throws IllegalArgumentException, SpaceBookException {
 		p1.addFriend(p2);
-		p1.sendMessageTo(p2,"hello");
+		p1.receiveMessage(p2,"hello");
 
 	}
 
 	@Test(expected = MessageSendingNotAllowed.class)
 	public void Person_whenPersonsAreNotFriends_thenTheyCantSendMessages()
 			throws IllegalArgumentException, SpaceBookException {
-		p1.sendMessageTo(p2, "hello");
+		p1.receiveMessage(p2, "hello");
 	}
 
 }

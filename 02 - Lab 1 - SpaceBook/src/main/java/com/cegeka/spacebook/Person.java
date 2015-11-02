@@ -12,12 +12,17 @@ public class Person {
 	private Collection<Person> friendsList;
 
 	public Person(String username) throws SpaceBookException {
-		if (username == null || username.trim().equals("")) {
+		if (!isUserNameValid(username)) {
+
 			throw new InvalidUserNameException();
 		}
 		this.username = username;
 
 		friendsList = new ArrayList<Person>();
+	}
+
+	private boolean isUserNameValid(String username) throws InvalidUserNameException {
+		return !(username == null || username.trim().equals("")) ;
 	}
 
 	public String getUserName() {
@@ -29,18 +34,18 @@ public class Person {
 	}
 
 	public void addFriend(Person friendPerson) {
-		if(friendPerson == this) {
+		if (friendPerson == this) {
 			throw new IllegalArgumentException();
 		}
-		if(!friendsList.contains(friendPerson)) {
+		if (!friendsList.contains(friendPerson)) {
 			friendsList.add(friendPerson);
 			friendPerson.addFriend(this);
 		}
 	}
 
-	public void sendMessageTo(Person receiver, String string) {
+	public void receiveMessage(Person receiver, String string) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
