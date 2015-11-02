@@ -40,6 +40,7 @@ public class PersonTest {
 		Person person = new Person("randomUsername");
 		assertThat(person.getFriends()).isEmpty();
 	}
+<<<<<<< HEAD
 
 	@Test
 	public void Person_becomeFriend_thenBidirectionalRelationshipSet() {
@@ -50,4 +51,6 @@ public class PersonTest {
 		assertThat(person2.getFriends()).extracting(Person::getUsername).contains("user1");
 	}
 
+=======
+>>>>>>> branch 'team2' of https://github.com/XPTrainingCegeka/XPTraining.git
 }
