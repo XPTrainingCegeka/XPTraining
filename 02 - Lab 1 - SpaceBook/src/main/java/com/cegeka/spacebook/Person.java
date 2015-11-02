@@ -3,14 +3,17 @@ package com.cegeka.spacebook;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.cegeka.spacebook.exception.InvalidUserNameException;
+import com.cegeka.spacebook.exception.SpaceBookException;
+
 public class Person {
 
 	private String username;
 	private Collection<Person> friendsList;
 
-	public Person(String username) throws InvalidUsernameException {
+	public Person(String username) throws SpaceBookException {
 		if (username == null || username.trim().equals("")) {
-			throw new InvalidUsernameException();
+			throw new InvalidUserNameException();
 		}
 		this.username = username;
 
@@ -33,6 +36,11 @@ public class Person {
 			friendsList.add(friendPerson);
 			friendPerson.addFriend(this);
 		}
+	}
+
+	public void sendMessage(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
