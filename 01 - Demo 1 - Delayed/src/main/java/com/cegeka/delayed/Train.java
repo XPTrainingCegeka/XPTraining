@@ -21,17 +21,19 @@ public class Train {
     }
 
 	public String customerSatisfaction() {
-		// TODO Auto-generated method stub
+
 		String satisfaction = null;
 		switch (hoursDelayed) {
 		case 0:
 			satisfaction = "case 0";
+			break;
 		case 1:
-			return "case 1";
+			satisfaction = "case 1";
+			break;
 		case 2:
-			return "This train is annoying me!";
-		case 3:
-			satisfaction = "case 3";
+			satisfaction = "This train is annoying me!";
+			break;
+
 		default:
 			break;
 		}

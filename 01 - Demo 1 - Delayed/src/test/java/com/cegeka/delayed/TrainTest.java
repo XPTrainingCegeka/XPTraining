@@ -23,7 +23,7 @@ public class TrainTest {
     	assertThat(train.customerSatisfaction()).isEqualTo("case 1");
     	
     	train.setHoursDelayed(0);
-    	assertThat(train.getHoursDelayed()).isEqualTo(1);
+    	assertThat(train.getHoursDelayed()).isEqualTo(0);
     	assertThat(train.customerSatisfaction()).isEqualTo("case 0");
     }
     
