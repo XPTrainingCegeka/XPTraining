@@ -1,15 +1,32 @@
 package com.cegeka.spacebook;
 
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
-
-import static org.fest.assertions.Assertions.assertThat;
 
 public class PersonTest {
 
-    @Test
-    public void Person_givenUsername_thenPersonCreated() {
-        Person person = new Person("randomUsername");
+	@Test
+	public void Person_givenUsername_thenPersonCreated() {
+		Person person = new Person("randomUsername");
 
-        assertThat(person).isNotNull();
-    }
+		Assertions.assertThat(person).isNotNull();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void Person_givenUsernameWithSpacesOrEmpty_thenPersonNotCreated() {
+		new Person("User name");
+		new Person("");
+	}
+
+	@Test
+	public void Person_hasNoneEmptyFriendsList() {
+		Person person = new Person("username");
+		person.getFriends().add(new Person("friend"));
+
+		Assertions.assertThat(person.getFriends())
+				.isNotEmpty()
+				.extracting(Person::getUsername)
+				.contains("friend");
+	}
+
 }
