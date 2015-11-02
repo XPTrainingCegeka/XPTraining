@@ -38,7 +38,7 @@ public class Person {
 		}
 	}
 
-	public void sendMessage(String string) {
+	public void sendMessageTo(Person receiver, String string) {
 		// TODO Auto-generated method stub
 		
 	}
