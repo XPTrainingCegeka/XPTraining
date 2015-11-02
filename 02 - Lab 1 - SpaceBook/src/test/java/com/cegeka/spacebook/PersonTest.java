@@ -52,6 +52,9 @@ public class PersonTest {
 
 	@Test
 	public void presonCanReceiveMessagesFromFriends() {
+		Person p = new Person("ayan");
+		Person p2 = new Person("nikola");
+		p2.sendMessage(p, "hallo!");
 
 	}
 }
