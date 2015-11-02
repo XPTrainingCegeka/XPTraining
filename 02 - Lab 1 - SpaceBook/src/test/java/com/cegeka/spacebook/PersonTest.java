@@ -2,6 +2,8 @@ package com.cegeka.spacebook;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Date;
+
 import org.junit.Test;
 
 public class PersonTest {
@@ -54,7 +56,8 @@ public class PersonTest {
 	public void presonCanReceiveMessagesFromFriends() {
 		Person p = new Person("ayan");
 		Person p2 = new Person("nikola");
-		p2.sendMessage(p, "hallo!");
+		Message message = new Message(new Date(), p2, "Hello");
+		p.sendMessage(message);
 
 	}
 }

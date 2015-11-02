@@ -12,11 +12,11 @@ public class Person {
 	private Set<Person> friends;
 
 	public Person(String userName) {
-		this.userName = userName;
-
 		if (userName == null || userName.equals("") || userName.contains(" ")) {
 			throw new InvalidUsernameException(MESSAGE);
 		}
+
+		this.userName = userName;
 
 		friends = new HashSet<>();
 	}
@@ -43,6 +43,11 @@ public class Person {
 			friends.add(person);
 			person.addFriend(this);
 		}
+	}
+
+	public void sendMessage(Message message) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
