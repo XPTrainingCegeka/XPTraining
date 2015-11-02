@@ -49,5 +49,4 @@ public class PersonTest {
 		assertThat(person1.getFriends()).extracting(Person::getUsername).contains("user2");
 		assertThat(person2.getFriends()).extracting(Person::getUsername).contains("user1");
 	}
-
 }
