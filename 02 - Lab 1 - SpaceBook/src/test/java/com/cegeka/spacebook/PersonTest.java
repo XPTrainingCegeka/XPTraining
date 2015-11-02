@@ -29,4 +29,13 @@ public class PersonTest {
 				.contains("friend");
 	}
 
+	@Test
+	public void Person_givenNewFriend_thenFriendAdded() {
+		Person person = new Person("me");
+		Person friend = new Person("him");
+		person.addFriend(friend);
+		Assertions.assertThat(person.getFriends()).isNotEmpty().contains(friend);
+		Assertions.assertThat(friend.getFriends()).isNotEmpty().contains(person);
+	}
+
 }

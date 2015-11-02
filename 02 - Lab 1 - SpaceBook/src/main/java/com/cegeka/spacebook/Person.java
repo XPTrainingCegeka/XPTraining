@@ -29,4 +29,11 @@ public class Person {
 		return friends;
 	}
 
+	public void addFriend(Person friend) {
+		if (friend != this) {
+			friends.add(friend);
+			friend.getFriends().add(this);
+		}
+	}
+
 }
