@@ -3,12 +3,7 @@ package movierental;
 public class NewMovie extends Movie {
 
 	public NewMovie(String title) {
-		super(title);
-	}
-
-	@Override
-	public double calculateRentalPrice(int days) {
-		return days * 3;
+		super(title, 0, 0, 3);
 	}
 
 	@Override
