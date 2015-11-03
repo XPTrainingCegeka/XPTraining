@@ -33,6 +33,7 @@ public class PetShopTest {
 	@Before
 	public void setUpTest() {
 		shop = new Shop(new EmailNotificationService(SMTP_TEST_PORT, SMPT_TEST_HOST));
+		wiser.getMessages().clear();
 	}
 
 	@AfterClass
