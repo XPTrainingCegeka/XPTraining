@@ -2,10 +2,15 @@ package org.cegeka.petshop;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.io.IOException;
 import java.util.Set;
 
-import org.junit.After;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.subethamail.wiser.Wiser;
 
@@ -14,11 +19,10 @@ public class PetShopTest {
 	private static final int SMTP_TEST_PORT = 9000;
 	private static final String SMPT_TEST_HOST = "localhost";
 	private Shop shop;
-	private Wiser wiser;
+	private static Wiser wiser;
 
-	@Before
-	public void setup() {
-		shop = new Shop(new EmailNotificationService(SMTP_TEST_PORT, SMPT_TEST_HOST));
+	@BeforeClass
+	public static void setUpTestClass() {
 
 		wiser = new Wiser();
 		wiser.setPort(SMTP_TEST_PORT);
@@ -26,8 +30,13 @@ public class PetShopTest {
 		wiser.start();
 	}
 
-	@After
-	public void tearDown() {
+	@Before
+	public void setUpTest() {
+		shop = new Shop(new EmailNotificationService(SMTP_TEST_PORT, SMPT_TEST_HOST));
+	}
+
+	@AfterClass
+	public static void tearDownTestClass() {
 		wiser.stop();
 	}
 
@@ -46,11 +55,14 @@ public class PetShopTest {
 	}
 
 	@Test
-	public void addItem_whenItem_thenEmailIsSend() {
+	public void addItem_whenItem_thenEmailIsSend() throws IOException, MessagingException {
 		String item = "Doggy Gucci bag";
 		addItem(item);
 
 		assertThat(wiser.getMessages()).hasSize(1);
+
+		MimeMessage mimeMessage = wiser.getMessages().get(0).getMimeMessage();
+		assertThat(mimeMessage.getContent().toString()).isEqualTo(item + "\r\n");
 
 	}
 
