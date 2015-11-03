@@ -5,6 +5,7 @@ import static org.mockito.Matchers.*;
 
 import java.util.Calendar;
 
+import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -25,13 +26,13 @@ public class GreetingTest {
 	public void morning(){
 		Mockito.when(ts.isMorning(any(Calendar.class))).thenReturn(true);
 		String s = g.getGreeting();
-		assertEquals("Good Morning", s);
+		Assertions.assertThat("Good Morning").isEqualTo(s);
 	}
 	@Test
 	public void afternoon(){
 		Mockito.when(ts.isMorning(any(Calendar.class))).thenReturn(false);
 		String s = g.getGreeting();
-		assertEquals("Good Day sir", s);
+		Assertions.assertThat("Good Day sir").isEqualTo(s);
 	}
 	
 }
