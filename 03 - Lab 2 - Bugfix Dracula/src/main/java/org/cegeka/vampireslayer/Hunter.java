@@ -1,5 +1,8 @@
 package org.cegeka.vampireslayer;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,6 +11,10 @@ public class Hunter {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(huntingTime);
         int huntingHour = calendar.get(Calendar.HOUR_OF_DAY);
-        return huntingHour > 0 && huntingHour < 6;
+        int huntingMinute = calendar.get(Calendar.MINUTE);
+        int huntingSecond = calendar.get(Calendar.SECOND);
+        int huntingMilliSecond = calendar.get(Calendar.MILLISECOND);
+    
+        return huntingHour >= 0 && huntingHour <= 6;
     }
 }
