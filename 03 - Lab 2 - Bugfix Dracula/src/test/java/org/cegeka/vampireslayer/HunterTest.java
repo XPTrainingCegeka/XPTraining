@@ -12,8 +12,10 @@ public class HunterTest {
 	private Hunter hunter;
 
 	private Date setUpDate(int hour, int minute) {
+		// LocalDateTime.of(2014, Month.APRIL, hour, minute);
 		Calendar calendar = Calendar.getInstance();
 		Date huntingTime;
+
 		calendar.set(2014, Calendar.APRIL, 12, hour, minute);
 		huntingTime = calendar.getTime();
 		return huntingTime;
@@ -48,5 +50,11 @@ public class HunterTest {
 	public void canHunt_given6am_thenCanHunt() {
 		Date huntingTime = setUpDate(6, 0);
 		assertThat(hunter.canHunt(huntingTime)).isTrue();
+	}
+
+	@Test
+	public void canHunt_given6amPlus1min_thenCanHunt() {
+		Date huntingTime = setUpDate(6, 1);
+		assertThat(hunter.canHunt(huntingTime)).isFalse();
 	}
 }
