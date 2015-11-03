@@ -1,34 +1,70 @@
 package org.cegeka.petshop;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Set;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.io.IOException;
+import java.util.Set;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.subethamail.wiser.Wiser;
+
 public class PetShopTest {
 
-    private Shop shop;
+	private static final int SMTP_TEST_PORT = 9000;
+	private static final String SMPT_TEST_HOST = "localhost";
+	private Shop shop;
+	private static Wiser wiser;
 
-    @Before
-    public void setup()
-    {
-        shop = new Shop();
-    }
+	@BeforeClass
+	public static void setUpTestClass() {
 
-    private void addItem(String item)
-    {
-        shop.addItem(item);
-    }
+		wiser = new Wiser();
+		wiser.setPort(SMTP_TEST_PORT);
+		wiser.setHostname(SMPT_TEST_HOST);
+		wiser.start();
+	}
 
-    @Test
-    public void addItem_whenItem_thenAddsItemToStock()
-    {
-        String item = "Doggy Gucci bag";
-        addItem(item);
+	@Before
+	public void setUpTest() {
+		shop = new Shop(new EmailNotificationService(SMTP_TEST_PORT, SMPT_TEST_HOST));
+		wiser.getMessages().clear();
+	}
 
-        Set<String> items = shop.getItemsInStock();
+	@AfterClass
+	public static void tearDownTestClass() {
+		wiser.stop();
+	}
 
-        assertThat(items.contains(item)).isTrue();
-    }
+	private void addItem(String item) {
+		shop.addItem(item);
+	}
+
+	@Test
+	public void addItem_whenItem_thenAddsItemToStock() {
+		String item = "Doggy Gucci bag";
+		addItem(item);
+
+		Set<String> items = shop.getItemsInStock();
+
+		assertThat(items.contains(item)).isTrue();
+	}
+
+	@Test
+	public void addItem_whenItem_thenEmailIsSend() throws IOException, MessagingException {
+		String item = "Doggy Gucci bag";
+		addItem(item);
+
+		assertThat(wiser.getMessages()).hasSize(1);
+
+		MimeMessage mimeMessage = wiser.getMessages().get(0).getMimeMessage();
+		assertThat(mimeMessage.getContent().toString()).isEqualTo(item + "\r\n");
+
+	}
+
 }
